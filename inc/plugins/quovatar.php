@@ -103,11 +103,11 @@ function quovatar_activate()
         );
 
     $PL->templates(
-'quovatar',
-                   'QuoVatar',
-                   array(
-                       '' => '<blockquote><img src="{$avatar}" align="top" /><cite><span>({$date} {$time})</span>{$name} {$lang->wrote}{$gotopost}</cite>{$message}</blockquote>',
-                       )
+        'quovatar',
+        'QuoVatar',
+        array(
+            '' => '<blockquote><img src="{$avatar}" align="top" /><cite><span>({$date} {$time})</span>{$name} {$lang->wrote}{$gotopost}</cite>{$message}</blockquote>',
+            )
         );
 
     $PL->edit_core(
