@@ -77,8 +77,8 @@ function quovatar_info()
         'website' => 'https://github.com/frostschutz/',
         'author' => 'Andreas Klauer',
         'authorsite' => 'mailto:Andreas.Klauer@metamorpher.de',
-        'version' => '0.2',
-        'guid' => '',
+        'version' => '0.3',
+        'guid' => '1dadb9af8f375f61ee9776e531a80599',
         'compatibility' => '16*',
         );
 }
@@ -218,39 +218,10 @@ function quovatar_quote($pid, $message, $name, $date, $time, $gotopost)
         // do naught
     }
 
-    else if($mybb->request_method != "post")
+    else
     {
         // Lazy mode:
         $quovatar_lazy[$pid] = $quovatar_cache[$pid] = random_str()."_{$pid}";
-    }
-
-    else
-    {
-        $query = $db->query("
-            SELECT u.avatar
-            FROM ".TABLE_PREFIX."posts p
-            LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=p.uid)
-            WHERE pid='{$pid}'
-        ");
-
-        $user = $db->fetch_array($query);
-
-        if($user)
-        {
-            if($user['vatar'])
-            {
-                $quovatar_cache[$pid] = $user['avatar'];
-            }
-            else
-            {
-                $quovatar_cache[$pid] = $settings['quovatar_default'];
-            }
-        }
-
-        else
-        {
-            $quovatar_cache[$pid] = false;
-        }
     }
 
     $avatar = $quovatar_cache[$pid];
