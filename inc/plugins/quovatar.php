@@ -40,7 +40,7 @@ switch(THIS_SCRIPT)
     case 'newreply.php':
     case 'newthread.php':
     case 'showthread.php':
-        $templatelist .= ',quovatar,quovatar_img';
+        $templatelist .= ',quovatar';
 }
 
 /* --- Hooks: --- */
