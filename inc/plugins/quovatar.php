@@ -72,12 +72,12 @@ function quovatar_depend()
 function quovatar_info()
 {
     return array (
-        'name' => 'Quovatar',
+        'name' => 'QuoVatar',
         'description' => 'Display avatars for quotes in posts.',
         'website' => 'https://github.com/frostschutz/',
         'author' => 'Andreas Klauer',
         'authorsite' => 'mailto:Andreas.Klauer@metamorpher.de',
-        'version' => '0.3',
+        'version' => '0.4',
         'guid' => '1dadb9af8f375f61ee9776e531a80599',
         'compatibility' => '16*',
         );
@@ -106,7 +106,7 @@ function quovatar_activate()
         'quovatar',
         'QuoVatar',
         array(
-            '' => '<blockquote><img src="{$avatar}" align="top" /><cite><span>({$date} {$time})</span>{$name} {$lang->wrote}{$gotopost}</cite>{$message}</blockquote>',
+            '' => '<blockquote style="padding: 5px; padding-left: 60px;"><img src="{$avatar}" style="width: 50px; margin-left: -55px; float: left;" /><cite><span>({$date} {$time})</span>{$name} {$lang->wrote}{$gotopost}</cite>{$message}<div class="clear"></div></blockquote><br />',
             )
         );
 
@@ -158,11 +158,11 @@ function quovatar_parse_message()
     {
         if($post['avatar'])
         {
-            $quovatar_cache[(int)$post['pid']] = $post['avatar'];
+            $quovatar_cache[(int)$post['pid']] = htmlspecialchars_uni($post['avatar']);
         }
         else
         {
-            $quovatar_cache[(int)$post['pid']] = $settings['quovatar_default'];
+            $quovatar_cache[(int)$post['pid']] = htmlspecialchars_uni($settings['quovatar_default']);
         }
     }
 }
@@ -194,7 +194,7 @@ function quovatar_pre_output_page(&$contents)
         {
             if($row['avatar'])
             {
-                $tr[$quovatar_lazy[$row['pid']]] = $row['avatar'];
+                $tr[$quovatar_lazy[$row['pid']]] = htmlspecialchars_uni($row['avatar']);
             }
         }
 
@@ -224,9 +224,10 @@ function quovatar_quote($pid, $message, $name, $date, $time, $gotopost)
         $quovatar_lazy[$pid] = $quovatar_cache[$pid] = random_str()."_{$pid}";
     }
 
+    $name = htmlspecialchars_uni($name);
     $avatar = $quovatar_cache[$pid];
 
-    eval('$quovatar = "'.trim($templates->get('quovatar', 1, 0)).'\n";');
+    eval('$quovatar = "'.trim($templates->get('quovatar', 1, 0)).'";');
 
     return $quovatar;
 }
