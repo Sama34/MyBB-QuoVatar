@@ -110,7 +110,7 @@ function quovatar_activate()
             )
         );
 
-    $PL->edit_core(
+    $result = $PL->edit_core(
         'quovatar',
         'inc/class_parser.php',
         array(
@@ -119,6 +119,12 @@ function quovatar_activate()
             ),
         true
         );
+
+    if($result !== true)
+    {
+        flash_message('Could not apply changes to inc/class_parser.php. Is the file writable?', 'error');
+        admin_redirect('index.php?module=config-plugins');
+    }
 }
 
 /*
