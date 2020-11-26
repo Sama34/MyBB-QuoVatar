@@ -79,7 +79,7 @@ function quovatar_info()
         'authorsite' => 'mailto:Andreas.Klauer@metamorpher.de',
         'version' => '0.4',
         'guid' => '1dadb9af8f375f61ee9776e531a80599',
-        'compatibility' => '16*',
+        'compatibility' => '18*',
         );
 }
 
@@ -114,7 +114,7 @@ function quovatar_activate()
         'quovatar',
         'inc/class_parser.php',
         array(
-            'search' => 'return "<blockquote><cite>',
+            'search' => 'eval("\$mycode_quote =',
             'before' => 'if(function_exists("quovatar_quote")) { return quovatar_quote($pid,$message,$username,$postdate,$posttime,$linkback);  }',
             ),
         true
